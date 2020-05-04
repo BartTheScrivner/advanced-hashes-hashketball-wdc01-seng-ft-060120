@@ -147,7 +147,7 @@ end
 def team_colors(team_name)
   game_hash.each_pair do |(team, info)|
     if info[:team_name] == team_name
-      info[:colors]
+      return info[:colors]
     end
   end
 end
