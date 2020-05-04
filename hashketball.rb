@@ -126,30 +126,37 @@ def game_hash
   }
 end
 
-def player_stat_seach(player_name, stat)
+def player_stats(player_name)
   game_hash.each_pair do |(team, info)|
     info[:players].count do |player|
       if player[:player_name] == player_name
-        return player[stat]
+        return player
       end
     end
   end
 end
 
 def num_points_scored(player_name)
-  player_stat_seach(player_name, :points)
+  stats = player_stats(player_name)
+  stats[:points]
 end
 
 def shoe_size(player_name)
-  player_stat_seach(player_name, :shoe)
+  stats = player_stats(player_name)
+  stats[:shoe]
+end
+
+def team_stats(team_name)
+  game_hash.each_pair do |(team, info)|
+    if info[:team_name] == team_name
+      return info
+    end
+  end
 end
 
 def team_colors(team_name)
-  game_hash.each_pair do |(team, info)|
-    if info[:team_name] == team_name
-      return info[:colors]
-    end
-  end
+  stats = team_stats(team_name)
+  stats[:colors]
 end
 
 def team_names
@@ -162,23 +169,9 @@ end
 
 def player_numbers(team_name)
   number_hash = []
-  game_hash.each_pair do |(team, info)|
-    if info[:team_name] == team_name
-      info[:players].count do |player|
-        number_hash.push(player[:number])
-      end
-    end
-  end
-  number_hash 
-end
-
-def player_stats(player_name)
-  game_hash.each_pair do |(team, info)|
-    info[:players].count do |player|
-      if player[:player_name] == player_name
-        return player
-      end
-    end
+  stats = team_stats(team_name)
+  stats[:players].count do |player|
+    number_hash.push(player[:number])
   end
 end
 
