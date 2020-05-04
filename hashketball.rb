@@ -172,15 +172,13 @@ def player_numbers(team_name)
   number_hash 
 end
 
-def player_numbers(team_name)
-  number_hash = []
+def player_stats(player_name)
   game_hash.each_pair do |(team, info)|
-    if info[:team_name] == team_name
-      info[:players].count do |player|
-        number_hash.push(player[:number])
+    info[:players].count do |player|
+      if player[:player_name] == player_name
+        return player
       end
     end
   end
-  number_hash 
 end
 
