@@ -155,7 +155,7 @@ end
 def team_names
   name_array = []
   game_hash.each_pair do |(team, info)|
-    name_array.push(team[:team_name])
+    name_array.push(info[:team_name])
   end
   name_array
 end
