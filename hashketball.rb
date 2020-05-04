@@ -173,5 +173,6 @@ def player_numbers(team_name)
   stats[:players].count do |player|
     number_hash.push(player[:number])
   end
+  number_hash
 end
 
