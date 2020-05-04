@@ -177,14 +177,16 @@ def player_numbers(team_name)
 end
 
 def big_shoe_rebounds
-  max_rebounds = 0
+  max_shoe_size= 0
+  associated_rebounds = 0
   game_hash.each_pair do |(team, info)|
     info[:players].count do |player|
-      if player[:rebounds] > max_rebounds
-        max_rebounds = player[:rebounds]
+      if player[:shoe_size] > max_shoe_size
+        max_shoe_size = player[:shoe_size]
+        associated_rebounds = player[:rebounds]
       end
     end
-    max_rebounds
+    associated_rebounds
   end
-  max_rebounds
+  associated_rebounds
 end
