@@ -190,3 +190,69 @@ def big_shoe_rebounds
   end
   associated_rebounds
 end
+
+def most_points_scored
+  top_score= 0
+  mvp = ""
+  game_hash.each_pair do |(team, info)|
+    info[:players].count do |player|
+      if player[:points] > top_score
+        top_score = player[:points]
+        mvp = player[:player_name]
+      end
+    end
+    mvp
+  end
+  mvp
+end
+
+def winning_team
+  score_hash = game_hash.reduce({}) do |memo, (team, info)|
+    if memo[info[:team_name]] === nil
+      memo[info[:team_name]]
+    end
+    points = []
+    info[:players].count do |player|
+      points.push(player[:points])
+    end
+    memo[info[:team_name]] = points.sum
+    memo
+  end
+  winner = score_hash.max_by{|k,v| v}
+  puts "The #{winner[0]} won with #{winner[1]} points"
+  winner
+end
+
+def player_with_longest_name
+  name_length = 0
+  long_name = ""
+  game_hash.each_pair do |(team, info)|
+    info[:players].count do |player|
+      if player[:player_name].length > name_length
+        name_length = player[:player_name].length
+        long_name = player[:player_name]
+      end
+    end
+    long_name
+  end
+  long_name
+end
+
+def long_name_steals_a_ton?
+  most_steals = 0
+  top_thief = ""
+  game_hash.each_pair do |(team, info)|
+    info[:players].count do |player|
+      if player[:steals] > most_steals
+        most_steals = player[:steals]
+        top_thief = player[:player_name]
+      end
+    end
+    top_thief
+  end
+  if top_thief == player_with_longest_name
+    return true
+  else
+    return false
+  end
+end
